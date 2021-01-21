@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { makeStyles, Box, Theme } from '@material-ui/core';
+import { makeStyles, Box, Theme, Typography } from '@material-ui/core';
+import { ReactComponent as Heart } from '../images/heart.svg';
 import SearchBar from 'src/Components/SearchBar';
 import searchHelper from '../helpers/searchHelper';
 import SearchResults from 'src/Components/SearchResults';
@@ -71,6 +72,11 @@ const MainView: React.FC = () => {
           <SearchImage width="100%" />
         </Box>
       )}
+      <Box display="flex" justifyContent="center" p={4}>
+        <Typography>
+          Made with <Heart width={24} height="auto" /> by Mikael Richardsson
+        </Typography>
+      </Box>
     </div>
   );
 };
