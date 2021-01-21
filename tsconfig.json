@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "module": "esnext",
+    "target": "es6",
+    "lib": [
+      "es7",
+      "dom"
+    ],
+    "sourceMap": true,
+    "declaration": true,
+    "newLine": "LF",
+    "declarationDir": "dist",
+    "allowJs": false,
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "rootDirs": [
+      "src"
+    ],
+    "forceConsistentCasingInFileNames": false,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "importHelpers": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": false,
+    "allowSyntheticDefaultImports": true,
+    "downlevelIteration": true,
+    "strict": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "noFallthroughCasesInSwitch": true,
+  },
+  "include": [
+    "src",
+    "types/general.d.ts"
+  ],
+  "exclude": [
+    "node_modules/**/*",
+    "build/**/*"
+  ]
+}
