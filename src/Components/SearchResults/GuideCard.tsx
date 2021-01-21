@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link, Share } from '@material-ui/icons';
+import React, { useState, useRef } from 'react';
+import { Link, Share, FileCopy, OpenInNew } from '@material-ui/icons';
 import {
   Card,
   CardMedia,
@@ -9,6 +9,9 @@ import {
   Typography,
   Theme,
   Button,
+  Popover,
+  OutlinedInput,
+  IconButton,
 } from '@material-ui/core';
 
 interface Props {
@@ -36,10 +39,46 @@ const useStyles = makeStyles((theme: Theme) => ({
   titleText: {
     fontWeight: 600,
   },
+  inputRoot: {
+    backgroundColor: 'white !important',
+    overflow: 'hidden',
+    '& svg': {
+      fill: theme.palette.primary.light,
+    },
+  },
+  inputFocused: {
+    border: 'none',
+  },
+  outline: {
+    border: 'none',
+  },
+  adornedEnd: {
+    paddingRight: 0,
+  },
+  buttonRoot: {
+    width: 56,
+    height: 56,
+    borderRadius: 0,
+  },
 }));
 
 const GuideCard: React.FC<Props> = ({ guide }) => {
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const inputAnchorEl = useRef<HTMLInputElement>();
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = (): void => {
+    setAnchorEl(null);
+  };
+
+  const handleCopyToClipboard = (): void => {
+    inputAnchorEl.current && inputAnchorEl.current.select();
+    document.execCommand('copy');
+  };
 
   return (
     <Card className={classes.root}>
@@ -65,10 +104,52 @@ const GuideCard: React.FC<Props> = ({ guide }) => {
               {guide.lastModifiedDate}
             </Typography>
             <Box>
-              <Button size="small" color="primary">
+              <Button size="small" color="primary" onClick={handleClick}>
                 URL
                 <Share />
               </Button>
+              <Popover
+                open={!!anchorEl}
+                onClose={handleClose}
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+              >
+                <Box display="flex">
+                  <OutlinedInput
+                    inputRef={inputAnchorEl}
+                    value={guide.fullURL}
+                    endAdornment={
+                      <Box display="flex" pl={1}>
+                        <IconButton
+                          onClick={handleCopyToClipboard}
+                          className={classes.buttonRoot}
+                        >
+                          <FileCopy />
+                        </IconButton>
+                        <IconButton
+                          onClick={() => window.open(guide.fullURL, '_blank')}
+                          className={classes.buttonRoot}
+                        >
+                          <OpenInNew />
+                        </IconButton>
+                      </Box>
+                    }
+                    classes={{
+                      root: classes.inputRoot,
+                      focused: classes.inputFocused,
+                      notchedOutline: classes.outline,
+                      adornedEnd: classes.adornedEnd,
+                    }}
+                  />
+                </Box>
+              </Popover>
             </Box>
           </Box>
         </CardContent>
