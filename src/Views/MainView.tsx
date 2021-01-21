@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { makeStyles, Box, Theme, Typography } from '@material-ui/core';
+import { makeStyles, Box, Theme } from '@material-ui/core';
 import SearchBar from 'src/Components/SearchBar';
 import searchHelper from '../helpers/searchHelper';
 import SearchResults from 'src/Components/SearchResults';
