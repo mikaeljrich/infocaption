@@ -124,7 +124,7 @@ const SearchBar: React.FC<Props> = ({
       >
         <Box minHeight={48}>
           {searchComplete && (
-            <Button fullWidth={false} onClick={clearSearch}>
+            <Button fullWidth={false} onClick={clear}>
               <ArrowBack />
               Go back
             </Button>
